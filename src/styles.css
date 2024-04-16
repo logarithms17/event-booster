@@ -1,0 +1,711 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========HOME DESKTOP========== */
+
+
+@media (min-width: 1280px) {
+    h1{
+            font-size: 50px;
+            line-height: 60.95px;
+    }
+
+    .header-section{
+        height: 446px;
+    }
+
+    .logo {
+        width: 300px;
+        height: 250px;
+
+    }
+
+    .main-container{
+        max-width: 946px;
+        gap: 50px;
+    }
+
+    .forms {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .card-img {
+        width: 180px;
+        height: 227px;
+        border-radius: 50px 0px 50px 0px;
+        object-fit: cover;
+    }
+
+    .card {
+        width: 196px;
+    }
+
+    .second-border {
+        width: 153px;
+        height: 143px;
+        top: -22px;
+        right: 0;
+    }
+
+    .footer-container {
+        width: 521px;
+    }
+
+    /* =======MODAL======= */
+
+    .event-modal{
+        width: 1000px;
+        display: block;
+        border-top-left-radius: 300px;
+        border-bottom-right-radius: 300px;
+    }
+
+    .event-img {
+        width: 400px;
+        height: 275px;
+        margin-left: 67px;
+        display: block;
+    }
+
+    .circle-event-img{
+        margin-left: 450px;
+        margin-top: 47px;
+        height: 132px;
+        width: 132px;
+    }
+
+    .more-button{
+        margin-left: 326px;
+        margin-bottom: 50px;
+        width: 255px;
+    }
+
+    .backdrop-container {
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        position: relative;
+        overflow-y: auto;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .info-description {
+        margin-right: 50px;
+    }
+
+    .artist-info,
+    .ticket-info {
+        margin-top: 10px;
+        margin-left: 65px;
+    }
+
+    .buy-button{
+        margin-right: 120px;
+    }
+
+
+    .ticket-prices{
+        justify-content: start;
+    }
+
+    .button-container {
+        position: absolute;
+        width: 1000px;
+    }
+}
+
+/* ===============HOME TABLET============== */
+
+@media (max-width: 1279px) {
+    h1{
+        font-size: 30px;
+        line-height: 36.57px;
+    }
+
+    .header-section {
+        height: 364px;
+    }
+
+    .logo {
+        width: 200px;
+        height: 175px;
+    }
+
+    .main-container {
+        max-width: 768px;
+        gap: 50px;
+    }
+
+    .forms {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .card-img {
+        width: 180px;
+        height: 227px;
+        border-radius: 50px 0px 50px 0px;
+        object-fit: cover;
+    }
+
+    .card {
+        width: 196px;
+    }
+
+    .second-border {
+        width: 153px;
+        height: 143px;
+        top: -22px;
+        right: 0;
+    }
+
+    .footer-container {
+        width: 521px;
+    }
+
+    /* =========MODAL======== */
+
+    .event-modal {
+        width: 704px;
+        display: block;
+        border-top-left-radius: 253px;
+        border-bottom-right-radius: 253px;
+    }
+    
+    .event-img {
+        width: 249px;
+        height: 217px;
+        margin-left: 64px;
+    }
+
+    .circle-event-img{
+        margin-top: 47px;
+        margin-left: 317px;
+        height: 70px;
+        width: 70px;
+    }
+    
+    .more-button {
+        margin-left: 157px;
+        width: 255px;
+        margin-bottom: 50px;
+    }
+
+    .backdrop-container {
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        position: relative;
+        overflow-y: auto;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .info-description {
+        margin-right: 50px;
+    }
+
+    .artist-info,
+    .ticket-info {
+        margin-top: 10px;
+        margin-left: 65px;
+    }
+
+    .buy-button {
+        margin-right: 120px;
+    }
+
+    .ticket-prices {
+        justify-content: start;
+    }
+
+    .button-container {
+        position: absolute;
+        width: 704px;
+    }
+}
+
+/* ===============HOME MOBILE============== */
+
+@media (max-width: 767px) {
+    .forms{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .logo {
+        width: 150px;
+        height: 125px;
+    }
+
+    .card-img {
+        width: 128px;
+        height: 161px;
+        border-radius: 50px 0px 50px 0px;
+        object-fit: cover;
+    }
+
+    .card {
+        width: 138px;
+    }
+
+    .second-border {
+        width: 109px;
+        height: 101px;
+        top: -15px;
+        right: -4px;
+    }
+
+    .main-container {
+        max-width: 296px;
+        gap: 20px;
+    }
+
+    .footer-container {
+        width: 252px;
+
+    }
+
+    /* ============MODAL=========== */
+
+    .event-modal{
+        display: flex;
+        flex-direction: column;
+        border-top-left-radius: 160px;
+        border-bottom-right-radius: 160px;
+        width: 280px;
+        text-align: center;
+    }
+
+    .event-img{
+        display: none;
+    }
+
+    .event {
+        width: 240px;
+    }
+
+    .info-description{
+        margin-right: 0;
+    }
+
+    .backdrop-container {
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        position: relative;
+        overflow-y: auto;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    
+    .circle-event-img {
+        margin-top: 68px;
+        margin-left: 20px;
+        height: 102px;
+        width: 102px;
+    }
+
+    .artist-info,
+    .ticket-info {
+        margin-top: 10px;
+        margin-left: 0;
+        width: 240px;
+    }
+
+    .buy-button {
+        margin-right: 0;
+    }
+
+    .more-button {
+        width: 230px;
+        margin-left: 0;
+        margin-bottom: 111px;
+    }
+
+    .button-container {
+        position: absolute;
+        width: 280px;
+    }
+}
+
+
+/* =======HOME MAIN========= */
+
+.container {
+    height: 100vh;
+    margin: auto;
+    position: relative;
+}
+
+.header-container{
+    margin: auto;
+}
+
+.header-section {
+    background-image: url(./images/pic.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.forms {
+    padding-top: 50px;
+}
+
+.form{
+    background: #FFFFFF33;
+
+}
+
+
+.input, .select{
+    width: 270px;
+    height: 40px;                
+    gap: 0px;
+    border-radius: 20px;
+    opacity: 200%;
+    box-shadow: none;
+    border-width: 0px;
+    padding-left: 20px;
+    color: #939393;
+}
+
+.inputForm{
+    position: relative;
+}
+
+.magnifying {
+    position: absolute;
+    top: 15px;
+    right: 19px;
+}
+
+.select{
+    padding-right: 20px;
+    position: relative;
+    appearance: none;
+}
+
+::placeholder {
+    color: #939393;
+}
+
+option {
+    color: white;
+    padding: 10px;
+    background-color: #939393;
+}
+
+.logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+h1 {
+    color: #DC56C5;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    font-weight: 900;
+}
+
+.dropdown-form{
+    position: relative;
+}
+
+.dropdown-arrow {
+    position: absolute;
+    top: 17px;
+    right: 16px;
+}
+
+.card-img {
+    border-radius: 50px 0px 50px 0px;
+    object-fit: cover;
+}
+
+/* MAIN SECTION */
+
+.main-container{
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.main-section-container{
+    margin: auto;
+}
+
+.main-section {
+    background-image: url(./images/bg-body.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.failed{
+    background-image: url(./images/bg-body.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+}
+
+
+
+.event-name{
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.5px;
+    color: #DC56C5;
+    text-align: center;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.date {
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.5px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.location {
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 17.07px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.location-icon{
+    width: 7px;
+    height: 10px;
+}
+
+.sample-icon{
+    display: none;
+}
+
+.event-info{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* SECOND BORDER */
+
+.second-border{
+    position: absolute;
+    border-radius: 50px 0px 50px 0px;
+    border: 1px solid #DC56C54D;
+    
+}
+
+
+
+
+/* FOOTER */
+
+footer {
+    padding-top: 50px;
+    padding-bottom: 30px;
+    margin: auto;
+}
+
+footer p{
+    color: #939393;
+    font-family: Montserra, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.5px;
+    text-align: center;
+}
+
+footer span {
+    color: red;
+    font-size: 20px;
+}
+
+
+
+/* PAGINATION */
+
+.pagination{
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.pagination ul{
+    display: flex;
+    gap: 15px;
+}
+
+.pagination li {
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.5px;
+    text-align: center;
+    color: #FFFFFF;
+    list-style: none;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.pagination .active{
+    color: #DC56C5;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px 0px 10px 0px;
+    border: 1px solid #DC56C5;
+}
+
+.current-page{
+    display: none;
+}
+
+
+/* MODAL STYLES */
+.modal-container {
+    font-family: Montserrat, sans-serif;
+}
+
+.backdrop {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.event-modal {
+    background-color: #FFF2FD;
+    /* position: fixed; */
+    top: 90px;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    margin-top: 100px;
+}
+
+.is-hidden {
+    pointer-events: none;
+    opacity: 0;
+}
+
+.modal-close-button {
+    background-color: transparent;
+    border-color: transparent;
+    position: absolute;
+    fill: #4C00FE;
+    cursor: pointer;
+    z-index: 999;
+    top: 115px;
+    right: 23px;
+}
+
+.circle-event-img {
+    border-radius: 100%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.event {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    margin-top: 10px;
+    align-items: start;
+    column-gap: 40px
+}
+
+
+
+.info-heading {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 29.26px;
+    color: #DC56C5;
+}
+
+.info-description {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21.94px;
+    color: #0E0E0E;
+}
+
+
+
+.ticket-prices {
+    display: flex;
+
+}
+
+.barcode-image {
+    margin-right: 20px;
+}
+
+.buy-button {
+    height: 40px;
+    width: 145px;
+    font-weight: 500;
+    font-family: inherit;
+    border-radius: 5px;
+    color: #FFFFFF;
+    background-color: #4C00FE;
+    border: none;
+    margin-top: 10px;
+
+    font-size: 14px;
+}
+
+.more-button {
+    margin-top: 30px;
+    height: 40px;
+    border-radius: 5px;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 14px;
+    color: #4C00FE;
+    background-color: #FFF2FD;
+    border: 1px solid #4C00FE;
+}
+
+
+
