@@ -36,7 +36,7 @@ function renderEvent(events) {
                         <h5 class="event-name">${name}</h5>
                         <div class="event-info"><p class="date">${dates.start.localDate}</p>
                           <p class="location">
-                              <img src="/location-icon.b3919cfb.png" alt="location icon" class="location-icon">
+                              <img src="/event-booster/location-icon.bb39e645.png" alt="location icon" class="location-icon">
                               ${venues[0].name}
                           </p></div>
                     </a>
@@ -262,7 +262,7 @@ function addModalMarkup(events) {
                           <div class="ticket-info-item">
                               <h3 class="info-heading">PRICES</h3>
                               <div class="ticket-prices">
-                                  <img src="/ticket.e2f575a5.png" alt="ticket barcode" class="barcode-image">
+                                  <img src="/event-booster/ticket.4ca21708.png" alt="ticket barcode" class="barcode-image">
                                   <p class="info-description standard-ticket-price">Standard ${events[0].priceRanges[0].min}-${events[0].priceRanges[0].max} ${events[0].priceRanges[0].currency}</p>
                               </div>
                               <button type="button" class="buy-button">BUY TICKETS</button>
