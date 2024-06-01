@@ -1,29 +1,47 @@
 import axios from 'axios';
 import { BASE_URL, options } from './discovery-api.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { throttle } from 'lodash';
+import { last, size, throttle } from 'lodash';
 
 
 const eventGallery = document.querySelector('.main-container');
 const selectCountry = document.querySelector('.select')
 const searchCountry = document.querySelector('.input')
+const pageNumbersUl = document.getElementById('page-numbers');
+const currentPageDiv = document.querySelector('.current-page');
+const ellipsisContainer = document.querySelector('.ellipsisContainer')
 
 //=======FETCH DATA FROM API========//
 async function fetchData() { 
   try { 
     const res = await axios.get(BASE_URL, options); 
     const { events } = res.data._embedded;
-    // console.log(events)
-    const { page } = res.data;
-    // console.log(page.number)
+    const {totalPages} = res.data.page
+    console.log(events)
+    console.log(res.data)
     renderEvent(events)
+    renderPageNumbers(1, totalPages);
 
   } catch (err) { 
       console.log(err)
-      Notify.failure(`Sorry! No event found!`);
-      
+    Notify.failure(`Sorry! No event found!`);
+    pageNumbersUl.innerHTML = ""
+    ellipsisContainer.innerHTML = ""
   }
 }
+
+async function fetchDataError() { 
+      try { 
+        const res = await axios.get(BASE_URL, options); 
+        const { events } = res.data._embedded;
+        renderEvent(events)
+
+      } catch (err) { 
+          console.log(err)
+          Notify.failure(`Sorry! No event found!`);
+          
+      }
+    }
 
 //=========INSERT MARKUP==========//
 
@@ -47,7 +65,11 @@ function renderEvent(events) {
 }
 
 //======== RENDER EVENTS AS PER COUNTRY ===========//
+
+selectCountry.addEventListener("change", countryEvent)
+
 async function countryEvent(e) {
+  options.params.page = 0
   eventGallery.innerHTML = "";
   let selectedCountry = e.target.value;
   options.params.countryCode = selectedCountry
@@ -65,14 +87,44 @@ async function inputEvent() {
   fetchData()
 }
 
-// ==========PAGINATION ===========//
-const pageNumbersUl = document.getElementById('page-numbers');
-const currentPageDiv = document.querySelector('.current-page');
-const nums = [...Array(30).keys()].slice(1);
+//========RENDER EVENT PER PAGE======//
 
-function renderPageNumbers(startIndex) {
+document.addEventListener('click', function (event) {
+  const eventId = event.target.getAttribute("id")
+  if (event.target.classList.contains('card-img')) {
+    options.params.id = eventId;
+    let currentPage = options.params.page;
+    fetchModalData(currentPage);
+    openModalFunction(); 
+  }
+});
+
+
+async function fetchModalData(currentPage) { 
+  try { 
+    options.params.page = 0;
+    const res = await axios.get(BASE_URL, options); 
+    const { events } = res.data._embedded;
+    addModalMarkup(events)
+    options.params.page = currentPage;
+    options.params.id = '';
+
+  } catch (err) { 
+      console.log(err)
+      Notify.failure(`Error fetchModalData Function!`);
+      
+  }
+}
+
+// ==========PAGINATION ===========//
+
+console.log(ellipsisContainer)
+
+function renderPageNumbers(startIndex, totalPage) {
+  ellipsisContainer.innerHTML=""
+  const nums = [...Array(totalPage).keys()];
+  console.log(nums)
     pageNumbersUl.innerHTML = '';
-    currentPageDiv.textContent = startIndex;
     if (startIndex > 1) {
         const previousPageLi = document.createElement('li');
         previousPageLi.textContent = 1;
@@ -82,15 +134,18 @@ function renderPageNumbers(startIndex) {
         pageNumbersUl.appendChild(previousEllipsisLi);
         previousEllipsisLi.addEventListener('click', () => {
             const previousStartIndex = Math.max(startIndex - 5, 1);
-            renderPageNumbers(previousStartIndex);
+            renderPageNumbers(previousStartIndex, totalPage);
         });
     }
-    const endIndex = Math.min(startIndex + 4, nums.length);
+  const endIndex = Math.min(startIndex + 4);
+  console.log(endIndex)
     for (let i = startIndex; i <= endIndex; i++) {
         const li = document.createElement('li');
         li.textContent = i;
         if (i === startIndex) {
-            li.classList.add('active');
+          li.classList.add('active');
+        } else if (i === totalPage) {
+          li.classList.add('active')
         }
         li.addEventListener('click', () => {
             pageNumbersUl.querySelectorAll('.active').forEach(activeLi => activeLi.classList.remove('active'));
@@ -99,20 +154,29 @@ function renderPageNumbers(startIndex) {
         });
         pageNumbersUl.appendChild(li);
     }
-    if (endIndex < nums.length) {
-        const nextEllipsisLi = document.createElement('li');
-        nextEllipsisLi.textContent = '...';
-        pageNumbersUl.appendChild(nextEllipsisLi);
-        const lastPageLi = document.createElement('li');
-        lastPageLi.textContent = nums.length;
-        pageNumbersUl.appendChild(lastPageLi);
-        nextEllipsisLi.addEventListener('click', () => {
-            const nextStartIndex = endIndex + 1;
-            renderPageNumbers(nextStartIndex);
-        });
+  if (endIndex < nums.length) {
+    const nextEllipsisLi = document.createElement('li');
+    console.log("entered")
+    nextEllipsisLi.textContent = '. . .';
+    ellipsisContainer.appendChild(nextEllipsisLi);
+    const lastPageLi = document.createElement('li');
+    lastPageLi.textContent = nums.length;
+    ellipsisContainer.appendChild(lastPageLi);
+        
+    nextEllipsisLi.addEventListener('click', () => {
+        const nextStartIndex = endIndex + 1;
+      renderPageNumbers(nextStartIndex, totalPage);
+    });
+
+    lastPageLi.addEventListener("click", () => {
+      let lastPage = lastPageLi.innerText
+      console.log(lastPage)
+      options.params.page = lastPage
+      fetchDataError()
+    })
     }
 }
-renderPageNumbers(1);
+
 
 //========RENDER EVENT PER PAGE======//
 
@@ -120,9 +184,9 @@ const activePage = document.querySelector(".pagination")
 console.log(activePage)
 console.log(currentPageDiv.innerText)
 
+
 async function renderEventByPage(e) {
   eventGallery.innerHTML = "";
-  // console.log(e.target.innerText)
   if (e.target.classList.contains('active')) {
     let newPage = e.target.innerText
     console.log(newPage)
@@ -130,29 +194,32 @@ async function renderEventByPage(e) {
     try { 
       const res = await axios.get(BASE_URL, options); 
       const { events } = res.data._embedded;
-      const { page } = res.data;
+      const { totalPages } = res.data.page
+      console.log(events)
       renderEvent(events)
 
 
     } catch (err) { 
         console.log(err)
-        Notify.failure(`Sorry! No event found!`);
+        Notify.failure(`Sorry! Exceeded limit free access`);
         
     }
   } else {
     eventGallery.innerHTML = "";
     Notify.failure(`Please click the page button again!`)
-
-    fetchData()
+    
+    fetchDataError()
   }
   
 }
 
-activePage.addEventListener("click", renderEventByPage) 
+
+
+pageNumbersUl.addEventListener("click", renderEventByPage) 
 
 
 
-selectCountry.addEventListener("change", countryEvent)
+
 searchCountry.addEventListener("input", throttle(inputEvent, 1500))
 
 fetchData()
@@ -166,7 +233,6 @@ const modalContainer = document.querySelector(".modal-container")
 function openModalFunction() {
   const modal = document.querySelector('.backdrop');
   if (modal) {
-    // modalContainer.innerHTML = "";
     modal.classList.remove('is-hidden');
   }
 }
@@ -190,39 +256,7 @@ function closeModalFunction() {
 }
 
 
-document.addEventListener('click', function (event) {
-  // options.params.id = "";
-  const eventId = event.target.getAttribute("id")
-  if (event.target.classList.contains('card-img')) {
-    options.params.id = eventId;
-    // fetchData()
-    // options.params.page = 1
-    let currentPage = options.params.page;
-    fetchModalData(currentPage);
-    openModalFunction(); 
-  }
-});
 
-
-async function fetchModalData(currentPage) { 
-  // options.params.page = 1;
-  try { 
-    options.params.page = 0;
-    const res = await axios.get(BASE_URL, options); 
-    const { events } = res.data._embedded;
-    // console.log(events)
-    // fetchData()
-    addModalMarkup(events)
-    options.params.page = currentPage;
-    options.params.id = '';
-    // renderEvent(events)
-
-  } catch (err) { 
-      console.log(err)
-      Notify.failure(`Error fetchModalData Function!`);
-      
-  }
-}
 
 function addModalMarkup(events) {
   console.log(events)

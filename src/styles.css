@@ -595,6 +595,12 @@ footer span {
     display: none;
 }
 
+.ellipsisContainer{
+    display: flex;
+    gap: 13px;
+    padding-left: 13px;
+}
+
 
 /* MODAL STYLES */
 .modal-container {
