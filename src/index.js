@@ -87,34 +87,7 @@ async function inputEvent() {
   fetchData()
 }
 
-//========RENDER EVENT PER PAGE======//
 
-document.addEventListener('click', function (event) {
-  const eventId = event.target.getAttribute("id")
-  if (event.target.classList.contains('card-img')) {
-    options.params.id = eventId;
-    let currentPage = options.params.page;
-    fetchModalData(currentPage);
-    openModalFunction(); 
-  }
-});
-
-
-async function fetchModalData(currentPage) { 
-  try { 
-    options.params.page = 0;
-    const res = await axios.get(BASE_URL, options); 
-    const { events } = res.data._embedded;
-    addModalMarkup(events)
-    options.params.page = currentPage;
-    options.params.id = '';
-
-  } catch (err) { 
-      console.log(err)
-      Notify.failure(`Error fetchModalData Function!`);
-      
-  }
-}
 
 // ==========PAGINATION ===========//
 
@@ -122,7 +95,7 @@ console.log(ellipsisContainer)
 
 function renderPageNumbers(startIndex, totalPage) {
   ellipsisContainer.innerHTML=""
-  const nums = [...Array(totalPage).keys()];
+  const nums = [...Array(totalPage).keys()].slice(1);
   console.log(nums)
     pageNumbersUl.innerHTML = '';
     if (startIndex > 1) {
@@ -166,9 +139,31 @@ function renderPageNumbers(startIndex, totalPage) {
     nextEllipsisLi.addEventListener('click', () => {
         const nextStartIndex = endIndex + 1;
       renderPageNumbers(nextStartIndex, totalPage);
+
+      async function nextStartIndexData(nextStartIndex) {
+        console.log(nextStartIndex)
+        options.params.page = 0
+        eventGallery.innerHTML = "";
+        options.params.page = nextStartIndex
+      try { 
+        const res = await axios.get(BASE_URL, options); 
+        console.log(res)
+        const { events } = res.data._embedded;
+        console.log(events)
+        renderEvent(events)
+
+      } catch (err) { 
+          console.log("error")
+          console.log(err)
+          Notify.failure(`Sorry! No event found!`);
+          
+      }
+      }
+      nextStartIndexData(nextStartIndex)
     });
 
     lastPageLi.addEventListener("click", () => {
+      eventGallery.innerHTML=""
       let lastPage = lastPageLi.innerText
       console.log(lastPage)
       options.params.page = lastPage
@@ -194,7 +189,6 @@ async function renderEventByPage(e) {
     try { 
       const res = await axios.get(BASE_URL, options); 
       const { events } = res.data._embedded;
-      const { totalPages } = res.data.page
       console.log(events)
       renderEvent(events)
 
@@ -228,6 +222,35 @@ fetchData()
 
 // MODAL JS
 const modalContainer = document.querySelector(".modal-container")
+
+//========RENDER EVENT PER PAGE======//
+
+document.addEventListener('click', function (event) {
+  const eventId = event.target.getAttribute("id")
+  if (event.target.classList.contains('card-img')) {
+    options.params.id = eventId;
+    let currentPage = options.params.page;
+    fetchModalData(currentPage);
+    openModalFunction(); 
+  }
+});
+
+
+async function fetchModalData(currentPage) { 
+  try { 
+    options.params.page = 0;
+    const res = await axios.get(BASE_URL, options); 
+    const { events } = res.data._embedded;
+    addModalMarkup(events)
+    options.params.page = currentPage;
+    options.params.id = '';
+
+  } catch (err) { 
+      console.log(err)
+      Notify.failure(`Error fetchModalData Function!`);
+      
+  }
+}
   
   
 function openModalFunction() {
